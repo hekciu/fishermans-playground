@@ -1,1 +1,7 @@
+Current goals:
+- Overall setup for windows
+- Integrate MinGW for windows compilation
+- Link Raylib with renderer
+
+Principles:
 - Raylib should be only used inside 'engine' abstraction layer
