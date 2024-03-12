@@ -1,18 +1,19 @@
 CXX_FLAGS := -std=c++2a -g
+SHELL := /bin/bash
 
 engine_files := $(shell find engine/ -type f -name '*.cc')
+engine_build_files := $(engine_files:%.cc=%.o)
 
-all: main.exe engine
+all: main.exe 
 
-main.exe: main.o
-	$(CXX) $(CXX_FLAGS) main.o -o main.exe
+main.exe: main.o $(engine_build_files)
+	$(CXX) $(CXX_FLAGS) main.o $(engine_build_files) -o main.exe
 
-main.o: main.cc $(engine_files)
+main.o: main.cc
 	$(CXX) $(CXX_FLAGS) -c main.cc -o main.o
 
-.PHONY: engine
-engine: $(engine_files)
-	$(CXX) $(CXX_FLAGS) -c $< -o $(shell echo $< | sed 's/.cc/.o/g')
+$(engine_build_files):
+	$(CXX) $(CXX_FLAGS) -c $(shell echo $@ | sed 's/.o/.cc/g') -o $@
 
 .PHONY: clean
 clean:
