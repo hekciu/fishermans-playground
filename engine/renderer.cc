@@ -1,9 +1,10 @@
-
+#include "renderer.h"
 
 
 class Renderer {
-	static Renderer * instance = nullptr;
-
+	static Renderer * instance;
+	
+	public:
 	Renderer() {
 		
 	}
@@ -13,7 +14,7 @@ class Renderer {
 	}
 
 	static Renderer * getInstance() {
-		if (!Renderer::instance) {
+		if (Renderer::instance == nullptr) {
 			Renderer::instance = new Renderer();
 		}
 		

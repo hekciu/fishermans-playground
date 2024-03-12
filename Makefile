@@ -1,8 +1,8 @@
-CXX_FLAGS := -std=c++2a
+CXX_FLAGS := -std=c++2a -g
 
 engine_files := $(shell find engine/ -type f -name '*.cc')
 
-all: main engine
+all: main.exe engine
 
 main.exe: main.o
 	$(CXX) $(CXX_FLAGS) main.o -o main.exe
@@ -16,4 +16,4 @@ engine: $(engine_files)
 
 .PHONY: clean
 clean:
-	rm -r *.o
+	find -type f -name *.o -delete

@@ -1,9 +1,9 @@
 
 
 class Renderer {
-	static private Renderer instance;
-
+	static Renderer instance;
+public:
 	Renderer();
 	~Renderer();
-	static Renderer getInstace();
-}
+	static Renderer getInstance();
+};
