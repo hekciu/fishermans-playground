@@ -1,11 +1,12 @@
-CXX := x86_64-w64-mingw32-gcc-win32 # windows thing
+# CXX := x86_64-w64-mingw32-gcc-win32 # windows thing
+CXX := g++
 
-CXX_FLAGS := -std=c++2a -g
+CXX_FLAGS := -std=c++2a -g -Wall -Wextra -Werror
 
 engine_files := $(shell find engine/ -type f -name '*.cc')
 engine_build_files := $(engine_files:%.cc=%.o)
 
-all: main.exe 
+game: main.exe 
 
 main.exe: main.o $(engine_build_files)
 	$(CXX) $(CXX_FLAGS) main.o $(engine_build_files) -o main.exe
@@ -13,11 +14,11 @@ main.exe: main.o $(engine_build_files)
 main.o: main.cc
 	$(CXX) $(CXX_FLAGS) -c main.cc -o main.o
 
-$(engine_build_files): raylib
+$(engine_build_files):
 	$(CXX) $(CXX_FLAGS) -c $(shell echo $@ | sed 's/.o/.cc/g') -o $@
 
 
-.PHONY: clean raylib raylib-install
+.PHONY: clean raylib raylib-install game
 clean:
 	@echo Cleaning local build files
 	find -type f -name *.o -delete
