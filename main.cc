@@ -2,5 +2,6 @@
 
 int main() {
 	Renderer::printMessage("Hello renderer");
+	Renderer::testRaylib();
 }
 

@@ -1,7 +1,8 @@
 Current goals:
-- Overall setup for windows
-- Integrate MinGW for windows compilation
-- Link Raylib with renderer
+- <DONE> Overall setup for windows
+- <DONE> Integrate MinGW for windows compilation
+- <DONE> Link Raylib with renderer
+- Create basic window with background and fullscreen options
 
 Principles:
 - Raylib should be only used inside 'engine' abstraction layer
