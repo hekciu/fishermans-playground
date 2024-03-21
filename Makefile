@@ -1,7 +1,7 @@
 TARGET := WINDOWS
 # TARGET := LINUX
 
-ifeq($(TARGET), WINDOWS)
+ifeq ($(TARGET), WINDOWS)
 	CXX := x86_64-w64-mingw32-g++ # windows thing
 	CC := gcc-mingw-w64
 	CXX_FLAGS := -std=c++2a -g -Wall -Wextra -static-libgcc -static-libstdc++
