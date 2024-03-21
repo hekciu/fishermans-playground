@@ -2,7 +2,7 @@
 
 int main() {
 	Renderer::printMessage("Hello renderer");
-	Renderer::updateConfig({10, 20, true});
+	Renderer::updateConfig({10, 20, true, "Hello Raylib"});
 
 	Renderer::printConfig();
 }

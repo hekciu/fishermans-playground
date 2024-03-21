@@ -10,4 +10,5 @@ public:
 	static void printConfig();
 private:
 	static Structures::RendererConfig config;
+	static bool isConfigInitialized;
 };
