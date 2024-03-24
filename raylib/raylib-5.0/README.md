@@ -1,2 +1,2 @@
 Official source code of Raylib downloaded from https://github.com/raysan5/raylib/releases/tag/5.0,
-with removed everything but LICENSE, src/ and .gitignore
+with removed everything but LICENSE, src/ and .gitignore, if you want to do the same consider buying this library here https://raysan5.itch.io/raylib
