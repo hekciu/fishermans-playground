@@ -5,5 +5,6 @@ int main() {
 	Renderer::updateConfig({10, 20, true, "Hello Raylib"});
 
 	Renderer::printConfig();
+	Renderer::initWindow();
 }
 

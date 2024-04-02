@@ -111,7 +111,7 @@ ROOT = $(shell whoami)
 
 # By default we suppose we are working on Windows
 HOST_PLATFORM_OS ?= WINDOWS
-PLATFORM_OS ?= WINDOWS
+PLATFORM_OS ?= LINUX
 
 # Determine PLATFORM_OS when required
 ifeq ($(PLATFORM),$(filter $(PLATFORM),PLATFORM_DESKTOP PLATFORM_DESKTOP_SDL PLATFORM_WEB))

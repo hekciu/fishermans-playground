@@ -4,7 +4,6 @@
 #include "renderer.h"
 
 #include "../raylib/raylib-5.0/src/raylib.h"
-#include "../raylib/raylib-5.0/src/raymath.h"
 
 /* defining static members */
 
@@ -22,6 +21,8 @@ void Renderer::initWindow() {
 		throw std::invalid_argument("Renderer config is not initialized");
 	};
 
+	// rlglInit(10,10);
+	// std::cout << RAYLIB_VERSION_MAJOR << std::endl;
 	// std::cout << Normalize(1, 2, 3);
 	InitWindow(Renderer::config.initialWindowWidth, Renderer::config.initialWindowHeight, Renderer::config.windowName.c_str());
 }
