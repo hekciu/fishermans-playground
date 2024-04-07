@@ -6,14 +6,8 @@ BUILD ON DEBIAN:
 - sudo apt-get install libglew-dev libglfw3-dev libglm-dev
 - sudo apt-get install libao-dev libmpg123-dev
 - sudo apt-get install libgl1-mesa-glx
-- <installing OpenGl stuff>
-- cd /usr/local/lib/
-- sudo git clone https://github.com/glfw/glfw.git
-- cd glfw
-- sudo cmake .
-- sudo make
-- sudo make install
-- <clone this repo>
+- sudo apt install pkgconf
+
+> clone this repo
 - make raylib
-- sudo make raylib-install
 - make game
