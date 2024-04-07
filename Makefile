@@ -6,9 +6,10 @@ RAYLIB_VERSION := 5.0
 current_dir := $(shell pwd)
 BUILD_DIR := $(current_dir)/build
 SRC_DIR := $(current_dir)
+RELEASE_DIR :=$(current_dir)/release
 
 raylib_src_path := $(current_dir)/raylib/raylib-$(RAYLIB_VERSION)/src
-engine_src_path := $(SRC_dir)/engine
+engine_src_path := $(SRC_DIR)/engine
 
 engine_files := $(notdir $(shell find $(SRC_DIR)/engine/ -maxdepth 1 -type f -name '*.cc'))
 engine_build_files := $(engine_files:%.cc=$(BUILD_DIR)/engine/%.o)
@@ -18,6 +19,8 @@ raylib_build_files := $(raylib_files:%.c=$(BUILD_DIR)/raylib/%.o)
 
 raylib_glfw_files := $(notdir $(shell find $(raylib_src_path)/external/glfw/src -maxdepth 1 -type f -name '*.c'))
 raylib_glfw_build_files := $(raylib_glfw_files:%.c=$(BUILD_DIR)/raylib/glfw/%.o)
+
+RELEASE_DEPENDENCIES := $(BUILD_DIR)/raylib/libraylib.a
 
 ifeq ($(TARGET), WINDOWS_64)
 	CXX := x86_64-w64-mingw32-g++
@@ -34,14 +37,18 @@ game: main.exe
 
 main.exe: main.o $(engine_build_files)
 	$(CXX) $(CXX_FLAGS) -I$(raylib_src_path) $(BUILD_DIR)/main.o $(engine_build_files) -o main.exe \
-			-L $(current_dir)/raylib/raylib-$(RAYLIB_VERSION) -l:$(BUILD_DIR)/raylib/libraylib.a \
+			-L $(BUILD_DIR)/raylib -lraylib \
 			-lwinmm -lgdi32 -static
+	
+	mkdir -p $(RELEASE_DIR)
+	cp main.exe $(RELEASE_DEPENDENCIES) $(RELEASE_DIR)/
 
 main.o: main.cc
 	mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXX_FLAGS) -c main.cc -o $(BUILD_DIR)/main.o
 
-$(BUILD_DIR)/engine/%.o: $(SRC_DIR)/engine/%.c
+$(BUILD_DIR)/engine/%.o: $(engine_src_path)/%.cc
+	mkdir -p $(BUILD_DIR)/engine
 	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 .PHONY: clean raylib game
