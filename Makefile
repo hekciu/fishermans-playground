@@ -50,15 +50,15 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 raylib: $(raylib_build_files)
-	$(CC) $(CC_FLAGS) -lwinmm -lgdi32 $(raylib_build_files) \
-	-o $(BUILD_DIR)/raylib/libraylib.a
+	$(CC) -shared $(raylib_build_files) \
+	-o $(BUILD_DIR)/raylib/libraylib.a -lwinmm -lgdi32
 
 $(BUILD_DIR)/raylib/%.o: $(raylib_src_path)/%.c
 	mkdir -p $(BUILD_DIR)/raylib
-	$(CC) $(CC_FLAGS) -I./raylib/raylib-$(RAYLIB_VERSION)/src/external/glfw/include -I/usr/include/SDL2 \
+	$(CC) $(CC_FLAGS) -I$(raylib_src_path)/external/glfw/include -I/usr/include/SDL \
 	 -c $< -o $@
 
 $(BUILD_DIR)/raylib/glfw/%.o: $(raylib_src_path)/external/glfw/src/%.c
 	mkdir -p $(BUILD_DIR)/raylib/glfw
-	$(CC) $(CC_FLAGS) -c $< -o $@
+	$(CC) $(CC_FLAGS) -I/usr/include/X11 -c $< -o $@
 
