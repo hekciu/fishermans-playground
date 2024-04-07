@@ -16,15 +16,42 @@ void Renderer::printMessage(const std::string &msg) {
 	std::cout << "[Renderer] " << msg << std::endl;
 };
 
-void Renderer::initWindow() {
+void Renderer::checkConfig() {
 	if (!Renderer::isConfigInitialized) {
 		throw std::invalid_argument("Renderer config is not initialized");
 	};
+}
 
-	// rlglInit(10,10);
-	// std::cout << RAYLIB_VERSION_MAJOR << std::endl;
-	// std::cout << Normalize(1, 2, 3);
-	InitWindow(Renderer::config.initialWindowWidth, Renderer::config.initialWindowHeight, Renderer::config.windowName.c_str());
+void Renderer::setup() {
+	SetTargetFPS(Renderer::config.targetFPS);
+}
+
+void Renderer::initWindow() {
+	Renderer::checkConfig();
+
+	InitWindow(Renderer::config.initialWindowWidth,
+		Renderer::config.initialWindowHeight,
+		Renderer::config.windowName.c_str());
+
+	Renderer::setup();
+}
+
+bool Renderer::windowShouldClose() {
+	return WindowShouldClose();
+}
+
+void Renderer::render() {
+        BeginDrawing();
+
+		ClearBackground(RAYWHITE);
+
+		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+
+        EndDrawing();
+}
+
+void Renderer::closeWindow() {
+	CloseWindow();
 }
 
 void Renderer::updateConfig(const Structures::RendererConfig &config) {
@@ -36,4 +63,6 @@ void Renderer::printConfig() {
 	Renderer::printMessage("config.initialWindowWidth " + std::to_string(Renderer::config.initialWindowWidth));
 	Renderer::printMessage("config.initialWindowHeight " + std::to_string(Renderer::config.initialWindowHeight));
 	Renderer::printMessage("config.windowShouldScale " + std::to_string(Renderer::config.windowShouldScale));
+	Renderer::printMessage("config.windowName " + Renderer::config.windowName);
+	Renderer::printMessage("config.targetFPS " + std::to_string(Renderer::config.targetFPS));
 }

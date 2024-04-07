@@ -6,5 +6,6 @@ namespace Structures {
 		int initialWindowHeight;
 		bool windowShouldScale;
 		std::string windowName;
+		int targetFPS;
 	};
 };

@@ -2,9 +2,13 @@
 
 int main() {
 	Renderer::printMessage("Hello renderer");
-	Renderer::updateConfig({10, 20, true, "Hello Raylib"});
+	Renderer::updateConfig({1000, 1000, true, "Hello Raylib", 60});
 
 	Renderer::printConfig();
 	Renderer::initWindow();
+	while(!Renderer::windowShouldClose()) {
+		Renderer::render();
+	}
+	Renderer::closeWindow();
 }
 
