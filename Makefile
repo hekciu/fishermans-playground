@@ -49,7 +49,7 @@ main.o: main.cc
 
 $(BUILD_DIR)/engine/%.o: $(engine_src_path)/%.cc
 	mkdir -p $(BUILD_DIR)/engine
-	$(CXX) $(CXX_FLAGS) -c $< -o $@
+	$(CXX) $(CXX_FLAGS) -I$(raylib_src_path) -c $< -o $@
 
 .PHONY: clean raylib game
 

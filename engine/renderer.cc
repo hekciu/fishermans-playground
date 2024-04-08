@@ -2,8 +2,9 @@
 #include <iostream>
 
 #include "renderer.h"
+#include "constants.h"
 
-#include "../raylib/raylib-5.0/src/raylib.h"
+#include "raylib.h"
 
 /* defining static members */
 
@@ -41,13 +42,13 @@ bool Renderer::windowShouldClose() {
 }
 
 void Renderer::render() {
-        BeginDrawing();
+	BeginDrawing();
 
-		ClearBackground(RAYWHITE);
+	ClearBackground(RAYWHITE);
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+	DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
-        EndDrawing();
+	EndDrawing();
 }
 
 void Renderer::closeWindow() {
