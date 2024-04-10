@@ -1,15 +1,18 @@
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 #include "renderer.h"
 #include "constants.h"
 
-#include "raylib.h"
-
 /* defining static members */
 
 Structures::RendererConfig Renderer::config;
-bool Renderer::isConfigInitialized = false;
+bool Renderer::wasConfigInitialized = false;
+bool Renderer::wereRendererModesInitialized = false;
+std::vector<int> Renderer::rendererModes;
+std::map<int, std::vector<GameObjects::AbstractObject * >> Renderer::gameObjects;
+int Renderer::currentRendererMode;
 
 /* defining static methods */
 
@@ -18,7 +21,7 @@ void Renderer::printMessage(const std::string &msg) {
 };
 
 void Renderer::checkConfig() {
-	if (!Renderer::isConfigInitialized) {
+	if (!Renderer::wasConfigInitialized) {
 		throw std::invalid_argument("Renderer config is not initialized");
 	};
 }
@@ -44,9 +47,12 @@ bool Renderer::windowShouldClose() {
 void Renderer::render() {
 	BeginDrawing();
 
-	ClearBackground(RAYWHITE);
-
-	DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+	/*
+		Draw elements included in current 'mode'
+	*/
+	for (GameObjects::AbstractObject * object : Renderer::gameObjects[Renderer::currentRendererMode]) {
+		object.draw();
+	}
 
 	EndDrawing();
 }
@@ -57,7 +63,42 @@ void Renderer::closeWindow() {
 
 void Renderer::updateConfig(const Structures::RendererConfig &config) {
 	Renderer::config = config;
-	Renderer::isConfigInitialized = true;
+	Renderer::wasConfigInitialized = true;
+}
+
+void Renderer::updateRendererModes(const std::vector<int> &modes) {
+	if (Renderer::wereRendererModesInitialized) {
+		throw std::invalid_argument("Renderer modes could only be initialized once");
+	}
+	Renderer::wereRendererModesInitialized = true;
+
+	Renderer::rendererModes = modes;
+
+	for (const int &mode : Renderer::rendererModes) {
+		Renderer::gameObjects.insert({mode, {}});
+	}
+}
+
+void Renderer::changeCurrentMode(const int &mode) {
+	Renderer::isModeValid(mode);
+
+	Renderer::currentRendererMode = mode;
+}
+
+void Renderer::isModeValid(const int &mode) {
+	const int cnt = count(Renderer::rendererModes.begin(), Renderer::rendererModes.end(), mode);
+
+	if (cnt == 0) {
+		throw std::invalid_argument("Invalid mode: " + std::to_string(mode));
+	}
+}
+
+void Renderer::addObjects(const int &mode, const std::vector<GameObjects::AbstractObject * > &objects) {
+	Renderer::isModeValid(mode);
+
+	for (GameObjects::AbstractObject * object : objects) {
+		Renderer::gameObjects[mode].emplace_back(object);
+	}
 }
 
 void Renderer::printConfig() {

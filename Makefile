@@ -24,7 +24,7 @@ RELEASE_DEPENDENCIES := $(BUILD_DIR)/raylib/libraylib.a
 
 ifeq ($(TARGET), WINDOWS_64)
 	CXX := x86_64-w64-mingw32-g++
-	CXX_FLAGS := -std=c++2a -mwindows -Wall -Wextra -g
+	CXX_FLAGS := -std=c++2a -mwindows -Wall -Wextra -g -I$(raylib_src_path)
 
 	CC := x86_64-w64-mingw32-gcc
 	CC_FLAGS := -ggdb -DPLATFORM_DESKTOP -fPIC -DSUPPORT_FILEFORMAT_FLAC=1 -DPLATFORM_DESKTOP -fPIC
@@ -35,8 +35,8 @@ endif
 
 game: main.exe
 
-main.exe: main.o $(engine_build_files)
-	$(CXX) $(CXX_FLAGS) -I$(raylib_src_path) $(BUILD_DIR)/main.o $(engine_build_files) -o main.exe \
+main.exe: $(engine_build_files) main.o
+	$(CXX) $(CXX_FLAGS) $(BUILD_DIR)/main.o $(engine_build_files) -o main.exe \
 			-L $(BUILD_DIR)/raylib -lraylib \
 			-lwinmm -lgdi32 -static
 	
@@ -49,7 +49,7 @@ main.o: main.cc
 
 $(BUILD_DIR)/engine/%.o: $(engine_src_path)/%.cc
 	mkdir -p $(BUILD_DIR)/engine
-	$(CXX) $(CXX_FLAGS) -I$(raylib_src_path) -c $< -o $@
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 .PHONY: clean raylib game
 
