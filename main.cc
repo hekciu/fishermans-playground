@@ -6,6 +6,10 @@ int main() {
 
 	Renderer::printConfig();
 	Renderer::initWindow();
+	Renderer::updateRendererModes({0});
+	const std::vector<GameObjects::AbstractObject * > vec = {new GameObjects::BackgroundColor(GRAY)};
+	Renderer::addObjects(0, vec);
+	Renderer::changeCurrentMode(0);
 	while(!Renderer::windowShouldClose()) {
 		Renderer::render();
 	}

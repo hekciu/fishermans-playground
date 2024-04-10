@@ -22,10 +22,10 @@ namespace GameObjects {
 
         ~BackgroundColor() {};
 
-        draw() {
+        void draw() {
             ClearBackground(this->color);
         }
-    }
+    };
 
     struct ScreenBackground : AbstractObject {
         Image ** texture;
@@ -35,7 +35,7 @@ namespace GameObjects {
 
         ~ScreenBackground() {};
 
-        draw() {
+        void draw() {
             
         }
     };

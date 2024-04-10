@@ -51,7 +51,7 @@ void Renderer::render() {
 		Draw elements included in current 'mode'
 	*/
 	for (GameObjects::AbstractObject * object : Renderer::gameObjects[Renderer::currentRendererMode]) {
-		object.draw();
+		object->draw();
 	}
 
 	EndDrawing();
