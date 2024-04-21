@@ -1,6 +1,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <queue>
 
 #include "structures.h"
 #include "game_objects.h"
@@ -27,4 +28,5 @@ private:
 	static std::map<int, std::vector<GameObjects::AbstractObject * >> gameObjects;
 	static int currentRendererMode;
 	static void isModeValid(const int &mode);
+	
 };

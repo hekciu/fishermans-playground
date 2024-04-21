@@ -6,6 +6,8 @@
 #include <vector>
 #include <iostream>
 
+#include "enums.h"
+
 namespace GameObjects {
     struct AbstractObject {
         bool isVisible;
@@ -28,15 +30,28 @@ namespace GameObjects {
     };
 
     struct ScreenBackground : AbstractObject {
-        Image ** texture;
+        Image * texture;
         ScreenBackground(Image * txtr) {
-            this->texture = &txtr;
+            this->texture = txtr;
         };
 
         ~ScreenBackground() {};
 
         void draw() {
             
+        }
+    };
+
+    struct Button2D : AbstractObject {
+        Enums::ButtonType type;
+        Button2D(const Enums::ButtonType &tp) {
+            this->type = tp;
+        }
+
+        ~Button2D() {};
+
+        void draw() {
+
         }
     };
 }

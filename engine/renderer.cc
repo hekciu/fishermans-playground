@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <queue>
 
 #include "renderer.h"
 #include "constants.h"
@@ -30,6 +31,9 @@ void Renderer::setup() {
 	SetTargetFPS(Renderer::config.targetFPS);
 }
 
+/*
+	This function initializes openGL context - need to be called before everything else
+*/
 void Renderer::initWindow() {
 	Renderer::checkConfig();
 
@@ -48,7 +52,7 @@ void Renderer::render() {
 	BeginDrawing();
 
 	/*
-		Draw elements included in current 'mode'
+		Draw elements in current 'mode'
 	*/
 	for (GameObjects::AbstractObject * object : Renderer::gameObjects[Renderer::currentRendererMode]) {
 		object->draw();
