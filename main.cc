@@ -7,7 +7,8 @@ int main() {
 	Renderer::printConfig();
 	Renderer::initWindow();
 	Renderer::updateRendererModes({0});
-	const std::vector<GameObjects::AbstractObject * > vec = {new GameObjects::BackgroundColor(GRAY), new GameObjects::RectangleButton2D(40, 40, 100, 50, RED)};
+	const std::vector<GameObjects::AbstractObject * > vec = {new GameObjects::BackgroundColor(GRAY),
+		new GameObjects::RectangleButton2D(40, 40, 100, 50, RED, "something", 5)};
 	Renderer::addObjects(0, vec);
 	Renderer::changeCurrentMode(0);
 	while(!Renderer::windowShouldClose()) {

@@ -48,23 +48,28 @@ namespace GameObjects {
         int width;
         int height;
         Color color;
-        RectangleButton2D(int posX, int posY, int width, int height, Color color, std::string text = NULL, int fontSize = 0) {
+        std::string text;
+        int fontSize;
+        Color fontColor;
+        RectangleButton2D(int posX, int posY, int width, int height, Color color, std::string text = "", int fontSize = 0, Color fontColor = BLUE) {
             this->posX = posX;
             this->posY = posY;
             this->width = width;
             this->height = height;
             this->color = color;
             this->text = text;
-            this->fontSize = fontSize;            
+            this->fontSize = fontSize;
+            this->fontColor = fontColor;
         }
 
         ~RectangleButton2D() {};
         void draw() {
             DrawRectangle(this->posX, this->posY, this->width, this->height, this->color);
-            if (this->text != NULL) {
-                int textPosX = this->posX + (this->width - this->fontSize) / 2;
-                int textPosY = this->posY + (this->height - this->fontSize) / 2; // TODO: wycentrowanie tego?
-                DrawText(text.c_str(), )
+            int textPadding = (this->height - this->fontSize) / 2;
+            if (this->text != "") {
+                int textPosX = this->posX + textPadding;
+                int textPosY = this->posY + textPadding;
+                DrawText(this->text.c_str(), textPosX, textPosY, this->fontSize, this->fontColor);
             }
         }
     };
