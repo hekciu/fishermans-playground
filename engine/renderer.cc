@@ -14,6 +14,7 @@ bool Renderer::wereRendererModesInitialized = false;
 std::vector<int> Renderer::rendererModes;
 std::map<int, std::vector<GameObjects::AbstractObject * >> Renderer::gameObjects;
 int Renderer::currentRendererMode;
+std::queue<Events::AbstractEvent *> Renderer::events;
 
 /* defining static methods */
 
@@ -102,6 +103,16 @@ void Renderer::addObjects(const int &mode, const std::vector<GameObjects::Abstra
 
 	for (GameObjects::AbstractObject * object : objects) {
 		Renderer::gameObjects[mode].emplace_back(object);
+	}
+}
+
+void Renderer::processEvents() {
+	while (Renderer::events.size() != 0) {
+		Events::AbstractEvent * event = Renderer::events.front();
+		event->performAction();
+		event->~AbstractEvent();
+		delete event;
+		Renderer::events.pop();
 	}
 }
 

@@ -66,11 +66,9 @@ namespace GameObjects {
         void draw() {
             DrawRectangle(this->posX, this->posY, this->width, this->height, this->color);
             int textPadding = (this->height - this->fontSize) / 2;
-            if (this->text != "") {
-                int textPosX = this->posX + textPadding;
-                int textPosY = this->posY + textPadding;
-                DrawText(this->text.c_str(), textPosX, textPosY, this->fontSize, this->fontColor);
-            }
+            int textPosX = this->posX + textPadding;
+            int textPosY = this->posY + textPadding;
+            DrawText(this->text.c_str(), textPosX, textPosY, this->fontSize, this->fontColor);
         }
     };
 }
