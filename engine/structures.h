@@ -13,6 +13,5 @@ namespace Structures {
 
 	struct RendererEventMessage {
 		Enums::RendererEventMessageType type;
-		arguments ?? TODO
 	};
 };

@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 
-#include "enums.h"
+#include "structures.h"
 
 namespace GameObjects {
     struct AbstractObject {
@@ -42,16 +42,23 @@ namespace GameObjects {
         }
     };
 
-    struct Button2D : AbstractObject {
-        Enums::ButtonType type;
-        Button2D(const Enums::ButtonType &tp) {
-            this->type = tp;
+    struct RectangleButton2D : AbstractObject {
+        int posX;
+        int posY;
+        int width;
+        int height;
+        Color color;
+        RectangleButton2D(int posX, int posY, int width, int height, Color color, std::string text = NULL) {
+            this->posX = posX;
+            this->posY = posY;
+            this->width = width;
+            this->height = height;
+            this->color = color;
         }
 
-        ~Button2D() {};
-
+        ~RectangleButton2D() {};
         void draw() {
-
+            DrawRectangle(this->posX, this->posY, this->width, this->height, this->color);
         }
     };
 }
