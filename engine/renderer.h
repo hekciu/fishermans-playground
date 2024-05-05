@@ -1,10 +1,12 @@
+#ifndef RENDERER
+#define RENDERER
+
 #include <string>
 #include <map>
 #include <vector>
 #include <queue>
 
 #include "game_objects.h"
-#include "events.h"
 
 class Renderer {
 public:
@@ -28,6 +30,6 @@ private:
 	static std::map<int, std::vector<GameObjects::AbstractObject * >> gameObjects;
 	static int currentRendererMode;
 	static void isModeValid(const int &mode);
-	static std::queue<Events::AbstractEvent *> events;
-	static void processEvents();
 };
+
+#endif

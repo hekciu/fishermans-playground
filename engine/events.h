@@ -1,4 +1,7 @@
-// TODO: ogarnij to: https://www.geeksforgeeks.org/include-guards-in-c/ zeby poprawnie zainkludowac pliki do siebie
+#ifndef EVENTS
+#define EVENTS
+
+#include "renderer.h"
 
 namespace Events {
     struct AbstractEvent {
@@ -18,3 +21,5 @@ namespace Events {
         };
     };
 }
+
+#endif

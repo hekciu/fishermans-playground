@@ -1,3 +1,6 @@
+#ifndef GAME_OBJECTS
+#define GAME_OBJECTS
+
 #include "raylib.h"
 
 // #include "utils.h"
@@ -7,6 +10,7 @@
 #include <iostream>
 
 #include "structures.h"
+// #include "events.h"
 
 namespace GameObjects {
     struct AbstractObject {
@@ -72,3 +76,5 @@ namespace GameObjects {
         }
     };
 }
+
+#endif

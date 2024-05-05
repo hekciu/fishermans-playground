@@ -1,3 +1,6 @@
+#ifndef STRUCTURES
+#define STRUCTURES
+
 #include <string>
 
 #include "enums.h"
@@ -10,8 +13,6 @@ namespace Structures {
 		std::string windowName;
 		int targetFPS;
 	};
-
-	struct RendererEventMessage {
-		Enums::RendererEventMessageType type;
-	};
 };
+
+#endif
