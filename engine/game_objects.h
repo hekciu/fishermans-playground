@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "structures.h"
-// #include "events.h"
+#include "events.h"
 
 namespace GameObjects {
     struct AbstractObject {
@@ -67,12 +67,17 @@ namespace GameObjects {
         }
 
         ~RectangleButton2D() {};
+
         void draw() {
             DrawRectangle(this->posX, this->posY, this->width, this->height, this->color);
             int textPadding = (this->height - this->fontSize) / 2;
             int textPosX = this->posX + textPadding;
             int textPosY = this->posY + textPadding;
             DrawText(this->text.c_str(), textPosX, textPosY, this->fontSize, this->fontColor);
+        }
+
+        void onClick() {
+
         }
     };
 }

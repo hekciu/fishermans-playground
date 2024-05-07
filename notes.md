@@ -1,4 +1,5 @@
 Current goals:
+- Fix the one below using callback functions in game objects
 - Fix issue with recursion - both game_objects and events are needed
 - Rewrite all ordinary pointers to smart pointers
 - Utils depending on target (windows/linux)

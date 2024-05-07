@@ -1,21 +1,42 @@
+#include <queue>
+
 #include "event_manager.h"
-#include "events.h"
+#include "renderer.h"
 
-/* defining static members */
+/* defining basic static members */
 
-std::queue<Events::AbstractEvent *> EventManager::events;
+std::queue<EventManager::AbstractEvent *> EventManager::events;
+
+/* defining events */
+
+struct EventManager::AbstractEvent {
+    AbstractEvent(){};
+    virtual ~AbstractEvent(){};
+    virtual void performAction() = 0;
+};
+
+struct EventManager::ChangeModeEvent : EventManager::AbstractEvent {
+    int mode;
+    ChangeModeEvent(int mode) {
+        this->mode = mode;
+    }
+    ~ChangeModeEvent() {};
+    void performAction() {
+        Renderer::changeCurrentMode(this->mode);
+    };
+};
 
 /* defining static methods */
 
 void EventManager::processEvents() {
 	while (EventManager::events.size() != 0) {
-		Events::AbstractEvent * event = EventManager::events.front();
+		EventManager::AbstractEvent * event = EventManager::events.front();
 		event->performAction();
 		delete event;
 		EventManager::events.pop();
 	}
 }
 
-void EventManager::addEvent(Events::AbstractEvent * event) {
+void EventManager::addEvent(EventManager::AbstractEvent * event) {
     EventManager::events.push(event);
 }
