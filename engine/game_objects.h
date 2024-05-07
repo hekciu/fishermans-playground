@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "structures.h"
-#include "events.h"
+#include "event_manager.h"
 
 namespace GameObjects {
     struct AbstractObject {
@@ -55,7 +55,15 @@ namespace GameObjects {
         std::string text;
         int fontSize;
         Color fontColor;
-        RectangleButton2D(int posX, int posY, int width, int height, Color color, std::string text = "", int fontSize = 0, Color fontColor = BLUE) {
+        Rectangle rec;
+        RectangleButton2D(int posX,
+                int posY,
+                int width,
+                int height,
+                Color color,
+                std::string text = "",
+                int fontSize = 0,
+                Color fontColor = BLUE) {
             this->posX = posX;
             this->posY = posY;
             this->width = width;
@@ -64,6 +72,7 @@ namespace GameObjects {
             this->text = text;
             this->fontSize = fontSize;
             this->fontColor = fontColor;
+            this->rec = {(float)this->posX, (float)this->posY, (float)this->width, (float)this->height};
         }
 
         ~RectangleButton2D() {};
@@ -74,10 +83,42 @@ namespace GameObjects {
             int textPosX = this->posX + textPadding;
             int textPosY = this->posY + textPadding;
             DrawText(this->text.c_str(), textPosX, textPosY, this->fontSize, this->fontColor);
+
+            int leftButton = 0;
+            // handle being left-clicked
+            const Vector2 cursorPosition = GetMousePosition();
+            const bool wasMouseButtonPressed = IsMouseButtonPressed(leftButton);
+            if (wasMouseButtonPressed && CheckCollisionPointRec(cursorPosition, this->rec)) {
+                this->onClick();
+            }
         }
 
-        void onClick() {
+        virtual void onClick() {};
+    };
 
+    struct ChangeModeRectangleButton2D : RectangleButton2D {
+        std::map<int, int> modeLogic;
+        ChangeModeRectangleButton2D(int posX,
+                int posY,
+                int width,
+                int height,
+                Color color,
+                std::string text = "",
+                int fontSize = 0,
+                Color fontColor = BLUE,
+                std::map<int, int> modeLogic = ): RectangleButton2D(posX, posY, width, height, color, text, fontSize, fontColor) {
+            
+            this->modeLogic = modeLogic;
+        };
+        ~ChangeModeRectangleButton2D() {};
+
+        void onClick() {
+            int currentRendererMode = 1;
+
+            int mode = this->modeLogic[currentRendererMode];
+            EventManager::AbstractEvent * = new EventManager::ChangeModeEvent(mode);
+
+            EventManager::addEvent();
         }
     };
 }

@@ -19,6 +19,7 @@ public:
 	static void render();
 	static void updateRendererModes(const std::vector<int> &modes);
 	static void changeCurrentMode(const int &mode);
+	static int getCurrentMode();
 	static void addObjects(const int &mode, const std::vector<GameObjects::AbstractObject * > &objects);
 private:
 	static Structures::RendererConfig config;

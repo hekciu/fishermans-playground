@@ -48,6 +48,10 @@ bool Renderer::windowShouldClose() {
 	return WindowShouldClose();
 }
 
+int Renderer::getCurrentMode() {
+	return Renderer::currentRendererMode;
+}
+
 void Renderer::render() {
 	BeginDrawing();
 
